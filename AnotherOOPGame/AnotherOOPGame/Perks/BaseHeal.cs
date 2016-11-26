@@ -20,9 +20,8 @@ namespace AnotherOOPGame.Perks
             value = base_value * lvl;
         }
 
-        public override string use()
+        public override string _use()
         {
-            update();
             return caster.addHp(value);
         }
     }

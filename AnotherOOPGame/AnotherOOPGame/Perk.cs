@@ -18,7 +18,17 @@ namespace AnotherOOPGame
             this.caster = caster;
         }
 
-        public abstract string use();
+        public abstract string _use();  // То, что делает перк
+
+        public string use()             // Обработчик для расчёта количества маны и прочего
+        {
+            update();
+            if (caster.mana >= manacost)
+                return _use();
+            else
+                return "Недостаточно маны (" + manacost + ")";
+        }
+
         public abstract void update();
         public void lvlUp()
         {

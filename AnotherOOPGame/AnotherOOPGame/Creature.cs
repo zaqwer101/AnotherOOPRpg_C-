@@ -394,6 +394,7 @@ namespace AnotherOOPGame
         {
             return free_stats;
         }
+
         public string addStat(int stat)
         {
             if (hasFreeStats())
@@ -426,6 +427,7 @@ namespace AnotherOOPGame
             else
                 return "Нет свободных очков характеристик";
         }
+
         public string upgradePerk(int num)
         {
             if (free_perks > 0)

@@ -465,6 +465,15 @@ namespace AnotherOOPGame
             hero.takeDamage(100);
             hero.perks.Add(new Perks.BaseHeal(hero));
             addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
+            addToLog(hero.perks[0].use());
             gameHandler(hero);
         }
     }
