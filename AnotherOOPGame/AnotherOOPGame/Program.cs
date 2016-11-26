@@ -22,6 +22,11 @@ namespace AnotherOOPGame
             right_i = 4;
         }
 
+        static void drawHeroPerks(Creature hero)
+        {
+
+        }
+
         static void drawFightInfo(Creature hero)
         {
             right_i = 4;
@@ -454,9 +459,12 @@ namespace AnotherOOPGame
             initLog();
             Console.Clear();
             Location.worldInit();
-            Location.world[2, 2].addItem(new Item("Деревянный дилдо"));
+            Location.world[2, 2].addItem(new Item("Деревянный дилдо")); 
             Creature hero = new Creature("Hero", Location.world[0, 0], "warrior");
             hero.buffs.Add(new Buff(10, 10, 10, 5, hero));
+            hero.takeDamage(100);
+            hero.perks.Add(new Perks.BaseHeal(hero));
+            addToLog(hero.perks[0].use());
             gameHandler(hero);
         }
     }

@@ -5,6 +5,7 @@ namespace AnotherOOPGame
 {
     public class Creature : GameObject
     {
+        public List<Perk> perks;
         public List<Buff> buffs;
         Weapon weapon;
         Armor equipment;                                //Доспех - один итем 
@@ -29,8 +30,9 @@ namespace AnotherOOPGame
 
         #endregion
 
-        public Creature(string name, Location location, string hero_class)
+        public Creature(string name, Location location, string hero_class)//Конструктор для игрока 
         {
+            this.perks = new List<Perk>();
             this.basehp = 100;
             this.basedamage = 10;
             buffs = new List<Buff>();
@@ -66,9 +68,10 @@ namespace AnotherOOPGame
             this.hp = maxhp;
             this.mana = maxmana;
             this.location.addCreature(this);
-        }
-        public Creature(Location location)
+        } 
+        public Creature(Location location) //Конструктор для NPC 
         {
+            this.perks = new List<Perk>();
             strength = 0; agility = 0; intelligence = 0;
             basemana = 100; basehp = hp; basedamage = damage;
             equipment = null;
@@ -79,7 +82,7 @@ namespace AnotherOOPGame
             this.location.addCreature(this);
         }
 
-        #region Для конструктора
+        #region Для конструктора NPC
 
         public void __setHp(float hp)
         {
@@ -148,7 +151,6 @@ namespace AnotherOOPGame
         }
         #endregion
 
-
         public void selectTarget(Creature creature)
         {
             isInBattle = true;
@@ -173,8 +175,6 @@ namespace AnotherOOPGame
             else
                 return "Не удалось перейти в локацию";
         }
-
-
 
         public void addToInventory(Item item)
         {
@@ -231,13 +231,18 @@ namespace AnotherOOPGame
                 return ("Цель отсутствует");
         }
 
-
-
         public void takeExp(int exp)
         {
             this.exp += exp;
             if (this.exp >= this.exp_to_lvl)
                 this.lvlUp();
+        }
+
+        public string addHp(float hp)
+        {
+            this.hp += hp;
+            if (this.hp > this.maxhp) this.hp = maxhp;
+            return this.name + " вылечился на " + hp;
         }
 
         public void recountStats()
@@ -420,6 +425,17 @@ namespace AnotherOOPGame
             }
             else
                 return "Нет свободных очков характеристик";
+        }
+        public string upgradePerk(int num)
+        {
+            if (free_perks > 0)
+            {
+                perks[num].lvlUp();
+                free_perks--;
+                return " уровень перка \" " + perks[num].name + "\" повышен";
+            }
+            else
+                return "Нет свободных перкпоинтов";
         }
     }
 }
