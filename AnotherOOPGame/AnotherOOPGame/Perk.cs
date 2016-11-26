@@ -24,7 +24,10 @@ namespace AnotherOOPGame
         {
             update();
             if (caster.mana >= manacost)
+            {
+                caster.mana -= manacost;
                 return _use();
+            }
             else
                 return "Недостаточно маны (" + manacost + ")";
         }

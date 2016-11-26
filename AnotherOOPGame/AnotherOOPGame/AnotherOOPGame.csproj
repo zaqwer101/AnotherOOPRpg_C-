@@ -33,8 +33,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Perks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Perks.Designer.cs">
+      <DependentUpon>Perks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Perk.cs" />
     <Compile Include="Perks\BaseHeal.cs" />
     <Compile Include="Program.cs" />
@@ -53,6 +63,11 @@
     <Compile Include="Weapon.cs" />
     <Compile Include="Damage.cs" />
     <Compile Include="Buff.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Perks.resx">
+      <DependentUpon>Perks.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -187,6 +187,7 @@ namespace AnotherOOPGame
             while (hero.isAlive())
             {
                 right_i = 4;
+                updateUI(hero, info);
                 key = Console.ReadKey(true);
                 switch (key.Key)
                 {
@@ -463,17 +464,11 @@ namespace AnotherOOPGame
             Creature hero = new Creature("Hero", Location.world[0, 0], "warrior");
             hero.buffs.Add(new Buff(10, 10, 10, 5, hero));
             hero.takeDamage(100);
+
             hero.perks.Add(new Perks.BaseHeal(hero));
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
-            addToLog(hero.perks[0].use());
+
+            Forms.Perks perks = new Forms.Perks(hero);
+            perks.ShowDialog();
             gameHandler(hero);
         }
     }
