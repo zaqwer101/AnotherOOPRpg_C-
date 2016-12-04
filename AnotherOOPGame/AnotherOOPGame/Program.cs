@@ -292,7 +292,7 @@ namespace AnotherOOPGame
                                     addToLog("Выберите характеристику для улучшения");
                                     updateUI(hero, "drawHeroStats");
                                     string choice = Console.ReadLine();
-                                    addToLog(hero.addStat(Convert.ToInt32(choice)));
+                                    addToLog(hero.upgradeStat(Convert.ToInt32(choice)));
                                     break;
                             }
                             break;
@@ -462,12 +462,12 @@ namespace AnotherOOPGame
             Location.worldInit();
             Location.world[2, 2].addItem(new Item("Деревянный дилдо")); 
             Creature hero = new Creature("Hero", Location.world[0, 0], "warrior");
-            hero.buffs.Add(new Buff(10, 10, 10, 5, hero));
+            hero.buffs.Add(new Buff(new Stats(10, 10, 10), -1, hero));
             hero.takeDamage(100);
 
             hero.perks.Add(new Perks.BaseHeal(hero));
 
-            Forms.Perks perks = new Forms.Perks(hero);
+            Forms.HeroPerks perks = new Forms.HeroPerks(hero);
             perks.ShowDialog();
             gameHandler(hero);
         }

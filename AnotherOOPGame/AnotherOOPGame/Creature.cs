@@ -27,7 +27,6 @@ namespace AnotherOOPGame
         public int lvl_heal, lvl_fire;                         //Уровень прокачки умений
         int free_perks,                                 //Свободные очки перков, которые получаются при получении нового уровня				
             free_stats;                                 //Свободные очки статов, которые получаются при получении нового уровня
-
         #endregion
 
         public Creature(string name, Location location, string hero_class)//Конструктор для игрока 
@@ -68,7 +67,7 @@ namespace AnotherOOPGame
             this.hp = maxhp;
             this.mana = maxmana;
             this.location.addCreature(this);
-        } 
+        }
         public Creature(Location location) //Конструктор для NPC 
         {
             this.perks = new List<Perk>();
@@ -205,24 +204,20 @@ namespace AnotherOOPGame
             {
                 if (target.isAlive())
                 {
-
-                    //if (target.isEnemy) {
                     isInBattle = true;
                     float _enemy_hp = target.getHp()[0];  //нужно для расчёта нанесённого урона
-                    target.takeDamage(this.damage);
+                    target.takeDamage(damage);
                     if (!target.isAlive())
                     {
                         string _enemy_name = target.name;
-                        this.takeExp((int)target.maxhp);
+                        takeExp((int)target.maxhp);
                         target.Die();
                         target = null;
                         isInBattle = false;
-                        return this.name + " убил " + _enemy_name;
+                        return name + " убил " + _enemy_name;
                     }
                     else
-                        return this.name + " нанёс " + Convert.ToInt32(_enemy_hp - target.hp) + " урона по " + target.name;
-                    //} else
-                    //	return "Невозможно атаковать цель"; Commented: Иначе противник не атакует героя, потому что для него флаг isEnemy не проходит
+                        return name + " нанёс " + Convert.ToInt32(_enemy_hp - target.hp) + " урона по " + target.name;
                 }
                 else
                     return target.name + " уже мёртв";
@@ -230,6 +225,7 @@ namespace AnotherOOPGame
             else
                 return ("Цель отсутствует");
         }
+
 
         public void takeExp(int exp)
         {
@@ -325,6 +321,8 @@ namespace AnotherOOPGame
                 this.equipment = armor;
                 armor.setOwner(this);
                 this.armor += armor.getArmor();
+                buffs.Add(new Buff(armor.getStats(), -1, this));
+                recountStats();
                 return this.name + " надел " + armor.name;
             }
             else
@@ -334,15 +332,16 @@ namespace AnotherOOPGame
         {
             this.equipment.setOwner(null);
             inventory.Add(this.equipment);
+            buffs.Remove(new Buff(equipment.getStats(), -1, this));
             this.armor -= this.equipment.getArmor();
             this.equipment = null;
+            recountStats();
             return this.name + " снял доспехи";
         }
         public Armor getArmor()
         {
             return equipment;
         }
-
         public string equipWeapon(Weapon weapon)
         {
             if (inventory.Contains(weapon))
@@ -354,6 +353,8 @@ namespace AnotherOOPGame
                 inventory.Remove(weapon);
                 weapon.setOwner(this);
                 this.damage += weapon.getDamage();
+                buffs.Add(new Buff(weapon.getStats(), -1, this));
+                recountStats();
                 return this.name + " надел " + weapon.name;
             }
             else
@@ -369,6 +370,8 @@ namespace AnotherOOPGame
             inventory.Add(this.weapon);
             this.damage -= weapon.getDamage();
             this.weapon = null;
+            buffs.Remove(new Buff(weapon.getStats(), -1, this));
+            recountStats();
             return this.name + " убрал оружие";
         }
         public Weapon getWeapon()
@@ -395,7 +398,7 @@ namespace AnotherOOPGame
             return free_stats;
         }
 
-        public string addStat(int stat)
+        public string upgradeStat(int stat)
         {
             if (hasFreeStats())
             {

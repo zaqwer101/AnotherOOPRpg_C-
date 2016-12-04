@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AnotherOOPGame.Forms
 {
 
-    public partial class Perks : Form
+    public partial class HeroPerks : Form
     {
         
         public Creature hero;
         List<EPerk> perks;
-        public Perks(Creature hero)
+        public HeroPerks(Creature hero)
         {
             
             this.hero = hero;
@@ -27,7 +22,9 @@ namespace AnotherOOPGame.Forms
         {
             
             perks = new List<EPerk>();
+
             this.Controls.Add(panel1);
+
             for (int i=0; i < hero.perks.Count; i++)
             {
                 perks.Add(
@@ -37,10 +34,9 @@ namespace AnotherOOPGame.Forms
                         new Button() { Text = "+", Location = new Point(300, i * 50), Name = "button_upgrade" + i }
                         )
                     );
+
                 panel1.Controls.Add(perks[perks.Count - 1].name);
-
                 panel1.Controls.Add(perks[perks.Count - 1].value);
-
                 panel1.Controls.Add(perks[perks.Count - 1].upgrade);
 
                 panel1.Update();
@@ -53,7 +49,7 @@ namespace AnotherOOPGame.Forms
             }
         }
 
-        class EPerk
+        class EPerk //Вспомогательный класс
         {
             public Label name, value;
             public Button upgrade;
@@ -64,11 +60,6 @@ namespace AnotherOOPGame.Forms
                 this.value = value;
                 this.upgrade = upgrade;
             }
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

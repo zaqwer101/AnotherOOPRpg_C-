@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace AnotherOOPGame.Perks
 {
-    public class BaseHeal : Perk
+    class FireBall : Perk
     {
-        public BaseHeal(Creature caster) : base(caster)
+        public FireBall(Creature caster) : base(caster)
         {
-            name = "Божественное вмешательство";
-            this.manacost = 20;
+            this.name = "Огненный удар";
+            this.manacost = 40;
             this.base_value = 20;
         }
 
@@ -22,7 +22,7 @@ namespace AnotherOOPGame.Perks
 
         public override string _use()
         {
-            return caster.addHp( value );
+            return "Not implemented";
         }
     }
 }

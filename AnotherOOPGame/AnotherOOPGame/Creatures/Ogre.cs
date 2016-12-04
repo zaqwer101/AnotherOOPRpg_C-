@@ -10,8 +10,8 @@ namespace AnotherOOPGame
 			:base(location)
 		{
 			this.isEnemy = true;
-			this.__setHp  (location.lvl * 150);
-			this.__setDmg (location.lvl * 2);
+			this.__setHp  (location.lvl * 200);
+			this.__setDmg (location.lvl * 5);
 			this.name = "Ogre" + ogres.Count;
 			this.addToInventory (new Item("Голова огра"));
 			ogres.Add (this);

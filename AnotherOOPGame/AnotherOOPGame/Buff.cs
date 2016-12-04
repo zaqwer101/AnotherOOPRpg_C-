@@ -5,37 +5,35 @@ namespace AnotherOOPGame
 {
 	public class Buff
 	{
-		public int strength, agility, intelligence,//добавочные статы
-		duration; //Сколько ходов осталось действовать
-		Creature target;
+        public Stats stats;  //Добавочные статы
+		public int duration; //Сколько ходов осталось действовать
+		Creature target;     //Цель добавления статов
 
-		public Buff(int strength, int agility, int intelligence, int duration, Creature target)
+		public Buff(Stats stats, int duration,Creature target)
 		{
-			this.target 		= target;
-			this.agility 		= agility;
-			this.strength 		= strength;
-			this.intelligence 	= intelligence;
-			this.duration 		= duration;
+            this.stats                  = stats;
+			this.target 		        = target;
+			this.duration 		        = duration;
 		}
 
 		public void addStats()
 		{
-			target.agility 		+= this.agility;
-			target.strength 	+= this.strength;
-			target.intelligence += this.intelligence;
+			target.agility 		+= this.stats.agility;
+			target.strength 	+= this.stats.strength;
+			target.intelligence += this.stats.intelligence;
 		}
 
 		public void removeStats()
 		{
-			target.agility 		-= this.agility;
-			target.strength 	-= this.strength;
-			target.intelligence -= this.intelligence;
+			target.agility 		-= this.stats.agility;
+			target.strength 	-= this.stats.strength;
+			target.intelligence -= this.stats.intelligence;
 		}
 
 		public void update()
 		{
 			this.duration--;
-			if (duration <= 0) {
+			if (duration == 0) {
 				removeStats ();
 				target.buffs.Remove (this);
 				target.recountStats ();
