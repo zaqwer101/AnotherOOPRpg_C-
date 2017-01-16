@@ -6,7 +6,7 @@ namespace AnotherOOPGame
 	public class Buff
 	{
         public Stats stats;  //Добавочные статы
-		public int duration; //Сколько ходов осталось действовать
+		public int duration; //Сколько условных едениц времени осталось действовать
 		Creature target;     //Цель добавления статов
 
 		public Buff(Stats stats, int duration,Creature target)
@@ -18,9 +18,9 @@ namespace AnotherOOPGame
 
 		public void addStats()
 		{
-			target.agility 		+= this.stats.agility;
-			target.strength 	+= this.stats.strength;
-			target.intelligence += this.stats.intelligence;
+			target.agility 		+= stats.agility;
+			target.strength 	+= stats.strength;
+			target.intelligence += stats.intelligence;
 		}
 
 		public void removeStats()
@@ -41,7 +41,6 @@ namespace AnotherOOPGame
 			} else
 				target.recountStats ();
 		}
-
 	}
 
 }

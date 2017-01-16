@@ -9,7 +9,8 @@ namespace AnotherOOPGame
         public List<Buff> buffs;
         Weapon weapon;
         Armor equipment;                                //Доспех - один итем 
-        public bool isEnemy = false, isInBattle = false;
+        public bool isEnemy = false
+            /*, isInBattle = false */; //
         Location location;
         //Ссылка на текущую локацию персонажа
         List<Item> inventory;
@@ -18,15 +19,15 @@ namespace AnotherOOPGame
         #region Stats
         public string name;
         float basehp, basedamage;
-        int basemana;                                   //базовые значения статов
-        float hp, maxhp, damage, armor;                 //Статы(финальные)
+        int basemana;                                       //базовые значения статов
+        float hp, maxhp, damage, armor;                     //Статы(финальные)
         public int strength, agility, intelligence;         //характеристики на основе которых считаются статы 
         int base_strength, base_agility, base_intelligence;
-        string hero_class;                              //Класс героя(rogue, warrior, mage)
+        string hero_class;                                  //Класс героя(rogue, warrior, mage)
         public int lvl, exp, exp_to_lvl, mana, maxmana;
-        public int lvl_heal, lvl_fire;                         //Уровень прокачки умений
-        int free_perks,                                 //Свободные очки перков, которые получаются при получении нового уровня				
-            free_stats;                                 //Свободные очки статов, которые получаются при получении нового уровня
+        public int lvl_heal, lvl_fire;                      //Уровень прокачки умений
+        int free_perks,                                     //Свободные очки перков, которые получаются при получении нового уровня				
+            free_stats;                                     //Свободные очки статов, которые получаются при получении нового уровня
         #endregion
 
         public Creature(string name, Location location, string hero_class)//Конструктор для игрока 
@@ -152,7 +153,7 @@ namespace AnotherOOPGame
 
         public void selectTarget(Creature creature)
         {
-            isInBattle = true;
+            //isInBattle = true;
             this.target = creature;
         }
 
@@ -204,7 +205,7 @@ namespace AnotherOOPGame
             {
                 if (target.isAlive())
                 {
-                    isInBattle = true;
+                    //isInBattle = true;
                     float _enemy_hp = target.getHp()[0];  //нужно для расчёта нанесённого урона
                     target.takeDamage(damage);
                     if (!target.isAlive())
@@ -213,7 +214,7 @@ namespace AnotherOOPGame
                         takeExp((int)target.maxhp);
                         target.Die();
                         target = null;
-                        isInBattle = false;
+                        //isInBattle = false;
                         return name + " убил " + _enemy_name;
                     }
                     else
@@ -308,7 +309,6 @@ namespace AnotherOOPGame
             else
                 return "Предмета не существует в локации";
         }
-
         public string equipArmor(Armor armor)
         {
             if (inventory.Contains(armor))
@@ -385,7 +385,7 @@ namespace AnotherOOPGame
             return ("Creature");
         }
 
-        public bool hasFreeStats()
+        public bool hasFreeStats()          //Имеются ли у существа свободные очки характеристик
         {
             if (this.free_stats > 0)
             { return true; }

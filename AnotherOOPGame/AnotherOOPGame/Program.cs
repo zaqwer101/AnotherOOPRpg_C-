@@ -252,7 +252,7 @@ namespace AnotherOOPGame
                     case ConsoleKey.A:
                         {
                             addToLog(hero.attack(hero.getTarget()));
-                            if (hero.isInBattle && hero.getTarget() != null)
+                            if (/* hero.isInBattle && */ hero.getTarget() != null)
                             {
                                 info = "FightInfo";
                             }
