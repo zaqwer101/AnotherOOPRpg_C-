@@ -34,14 +34,29 @@ namespace AnotherOOPGame
 		{
 			this.duration--;
 			if (duration == 0) {
-				removeStats ();
-				target.buffs.Remove (this);
-				target.recountStats ();
-				MainClass.addToLog ("Истекло время действия баффа");
-			} else
+                remove();
+            } else
 				target.recountStats ();
 		}
-	}
+
+        public void remove()
+        {
+            removeStats();
+            target.buffs.Remove(this);
+            target.recountStats();
+            MainClass.addToLog("Истекло время действия баффа");
+        }
+
+        public int getDuration()
+        {
+            return duration;
+        }
+
+        public Creature getTarget()
+        {
+            return target;
+        }
+    }
 
 }
 

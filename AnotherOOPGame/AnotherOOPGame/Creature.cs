@@ -7,7 +7,9 @@ namespace AnotherOOPGame
 	{
 		public List<Perk> perks;
 		public List<Buff> buffs;
-		Weapon weapon;
+        public List<IPoison> poisons;
+
+        Weapon weapon;
 		Armor equipment;
 		//Доспех - один итем
 		public bool isEnemy = false
@@ -42,6 +44,7 @@ namespace AnotherOOPGame
 
 		public Creature (string name, Location location, string hero_class)//Конструктор для игрока 
 		{
+            poisons = new List<IPoison>();
 			this.perks = new List<Perk> ();
 			this.basehp = 100;
 			this.basedamage = 10;
@@ -216,7 +219,7 @@ namespace AnotherOOPGame
 			this.location.removeCreature (this);
 		}
 
-		public string attack (Creature enemy, string type_damage)   //Желательно переделать в виртуальный метод, и для каждого класса существ переопределять отдельно
+		public string attack (Creature enemy )   //Желательно переделать в виртуальный метод, и для каждого класса существ переопределять отдельно
 		{
 			target = enemy;
 			if (target != null) {
@@ -226,7 +229,7 @@ namespace AnotherOOPGame
 					target.takeDamage (damage);
 					if (!target.isAlive ()) {
 						string _enemy_name = target.name;
-						takeExp ((int)target.maxhp);
+						addExp ((int)target.maxhp);
 						target.Die ();
 						target = null;
 						//isInBattle = false;
@@ -240,7 +243,7 @@ namespace AnotherOOPGame
 		}
 
 
-		public void takeExp (int exp)
+		public void addExp (int exp)
 		{
 			this.exp += exp;
 			if (this.exp >= this.exp_to_lvl)

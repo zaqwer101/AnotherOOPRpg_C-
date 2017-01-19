@@ -58,9 +58,11 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IPoison.cs" />
     <Compile Include="Perks\Perk.cs" />
     <Compile Include="Perks\BaseHeal.cs" />
     <Compile Include="Perks\FireBall.cs" />
+    <Compile Include="Poison.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameObject.cs" />
