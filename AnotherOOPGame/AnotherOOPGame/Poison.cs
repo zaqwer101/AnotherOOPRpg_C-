@@ -12,6 +12,7 @@ namespace AnotherOOPGame
         int duration;
         Creature target;
         string type;
+        string name;    //Для каждого яда свою глобально
         public Poison(float damage, int duration, Creature target, string type)
         {
             this.damage = damage;
@@ -39,16 +40,21 @@ namespace AnotherOOPGame
             return target.name + " получил " + (_hp - target.getHp()[0]) + " урона(" + type + ")" ;
         }
 
-        public void remove()
+        public string remove()
         {
             target.poisons.Remove(this);
+            return "Действие " + name + " закончилось";
         }
 
-        public void update()
+        public string update()
         {
             if(duration > 0)
             {
-                
+                return poisonAttack();
+            }
+            else
+            {
+                return remove();
             }
         }
     }

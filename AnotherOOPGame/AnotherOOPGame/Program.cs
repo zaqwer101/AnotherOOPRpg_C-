@@ -465,6 +465,8 @@ namespace AnotherOOPGame
             hero.buffs.Add(new Buff(new Stats(10, 10, 10), -1, hero));
             hero.takeDamage(100);
 
+            
+
             hero.perks.Add(new Perks.BaseHeal(hero));
 
             Forms.HeroPerks perks = new Forms.HeroPerks(hero);

@@ -8,8 +8,8 @@ namespace AnotherOOPGame
 {
     public interface IPoison
     {
-        void update();
-        void remove();
+        string update();
+        string remove();
         int getDuration();
         Creature getTarget();
         string poisonAttack();

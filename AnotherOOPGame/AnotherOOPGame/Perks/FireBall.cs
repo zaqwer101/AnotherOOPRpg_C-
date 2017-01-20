@@ -24,7 +24,6 @@ namespace AnotherOOPGame.Perks
 		{
 			try {
 				return caster.attack (caster.getTarget ());
-
 			} catch {
 				return "Не удалось испольовать перк ";
 			}
