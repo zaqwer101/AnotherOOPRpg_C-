@@ -7,13 +7,13 @@ namespace AnotherOOPGame
 	{
 		public List<Perk> perks;
 		public List<Buff> buffs;
-        public List<IPoison> poisons;
+		public List<IPoison> poisons;
 
-        Weapon weapon;
+		Weapon weapon;
 		Armor equipment;
 		//Доспех - один итем
 		public bool isEnemy = false
-            /*, isInBattle = false */;
+			/*, isInBattle = false */;
 		//
 		Location location;
 		//Ссылка на текущую локацию персонажа
@@ -26,7 +26,7 @@ namespace AnotherOOPGame
 		float basehp, basedamage;
 		int basemana;
 		//базовые значения статов
-		float hp, maxhp, damage, armor;
+		float hp, maxhp, damage, armor, magic_resist = 0;
 		//Статы(финальные)
 		public int strength, agility, intelligence;
 		//характеристики на основе которых считаются статы
@@ -42,23 +42,26 @@ namespace AnotherOOPGame
 
 		#endregion
 
-		public Creature (string name, Location location, string hero_class)//Конструктор для игрока 
+		public Creature(string name, Location location, string hero_class)//Конструктор для игрока 
 		{
-            poisons = new List<IPoison>();
-			this.perks = new List<Perk> ();
+			poisons = new List<IPoison>();
+			this.perks = new List<Perk>();
 			this.basehp = 100;
 			this.basedamage = 10;
-			buffs = new List<Buff> ();
+			buffs = new List<Buff>();
 			base_strength = 0;
 			base_agility = 0;
 			base_intelligence = 0;
-			if (hero_class.Equals ("warrior")) {
+			if (hero_class.Equals("warrior"))
+			{
 				base_strength = 5;
 			}
-			if (hero_class.Equals ("mage")) {
+			if (hero_class.Equals("mage"))
+			{
 				base_intelligence = 5;
 			}
-			if (hero_class.Equals ("rogue")) {
+			if (hero_class.Equals("rogue"))
+			{
 				base_agility = 5;
 			}
 			strength = base_strength;
@@ -72,19 +75,23 @@ namespace AnotherOOPGame
 			this.lvl = 1;
 			this.exp = 0;
 			this.exp_to_lvl = 100;
-			this.inventory = new List<Item> ();
+			this.inventory = new List<Item>();
 			this.armor = 0;
 			this.name = name;
 			this.location = location;           //Стартовая локация
-			recountStats ();
+			recountStats();
 			this.hp = maxhp;
 			this.mana = maxmana;
-			this.location.addCreature (this);
+			this.location.addCreature(this);
 		}
 
-		public Creature (Location location) //Конструктор для NPC 
+		/// <summary>
+		/// Конструктор для NPC. Принимает на вход локацию для спауна непися, на основе уровня локации рассчитывает уровень нпс.
+		/// </summary>
+		/// <param name="location">Location.</param>
+		public Creature(Location location) //Конструктор для NPC 
 		{
-			this.perks = new List<Perk> ();
+			this.perks = new List<Perk>();
 			strength = 0;
 			agility = 0;
 			intelligence = 0;
@@ -94,20 +101,20 @@ namespace AnotherOOPGame
 			equipment = null;
 			this.target = null;
 			this.location = location;
-			this.inventory = new List<Item> ();
+			this.inventory = new List<Item>();
 			this.armor = 0;
-			this.location.addCreature (this);
+			this.location.addCreature(this);
 		}
 
 		#region Для конструктора NPC
 
-		public void __setHp (float hp)
+		public void __setHp(float hp)
 		{
 			this.maxhp = hp;
 			this.hp = hp;
 		}
 
-		public void __setDmg (float damage)
+		public void __setDmg(float damage)
 		{
 			this.damage = damage;
 		}
@@ -116,54 +123,59 @@ namespace AnotherOOPGame
 
 		#region Вывод информации
 
-		public float getMana ()
+		public float getMana()
 		{
 			return this.mana;
 		}
 
-		public string getTextInventory ()
+		public string getTextInventory()
 		{
 			string _inventory = "";
-			for (int i = 0; i < this.inventory.Count; i++) {
-				_inventory += this.inventory [i].name + ":" + this.inventory [i].id + "\n";
+			for (int i = 0; i < this.inventory.Count; i++)
+			{
+				_inventory += this.inventory[i].name + ":" + this.inventory[i].id + "\n";
 			}
 
 			return _inventory;
 		}
 
-		public Creature getTarget ()
+		public Creature getTarget()
 		{
 			return target;
 		}
 
-		public Location getLocation ()
+		public Location getLocation()
 		{
 			return location;
 		}
 
-		public Item[] getInventory ()
+		public Item[] getInventory()
 		{
-			return this.inventory.ToArray ();
+			return this.inventory.ToArray();
 		}
-
-		public float[] getHp ()
+		/// <summary>
+		/// Возвращает float[]. 0 - текущие HP, 1 - максимальные HP.
+		/// </summary>
+		/// <returns>The hp.</returns>
+		public float[] getHp()
 		{
 			return new float[2] { this.hp, this.maxhp };
 		}
 
-		public bool isAlive ()
+		public bool isAlive()
 		{
 			if (this.hp > 0)
 				return true;
-			else {
+			else
+			{
 				return false;
 			}
 		}
 
-		public string printStats ()
+		public string printStats()
 		{
 			return
-                "Name : " + this.name + "\n" +
+				"Name : " + this.name + "\n" +
 			"HP   : " + this.hp + "/" + this.maxhp + "\n" +
 			"LVL  : " + this.lvl + "\n" +
 			"EXP  : " + this.exp + "/" + this.exp_to_lvl + "\n" +
@@ -174,83 +186,158 @@ namespace AnotherOOPGame
 
 		#endregion
 
-		public void selectTarget (Creature creature)
+		public void selectTarget(Creature creature)
 		{
 			//isInBattle = true;
 			this.target = creature;
 		}
-
-		public void goToLocation (Location location)
+		/// <summary>
+		/// Идёт в локацию без проверки на возможность её достижения. Правильнее было бы сделать её приватной.
+		/// </summary>
+		/// <param name="location">Location.</param>
+		public void goToLocation(Location location)
 		{
-			this.location.removeCreature (this);
-			location.addCreature (this);
+			this.location.removeCreature(this);
+			location.addCreature(this);
 			this.location = location;
 		}
-
-		public string goToDirection (int x_direction, int y_direction)
+		/// <summary>
+		/// Отправляет существо в заданном направлении
+		/// </summary>
+		/// <returns>The to direction.</returns>
+		/// <param name="x_direction">X direction.</param>
+		/// <param name="y_direction">Y direction.</param>
+		public string goToDirection(int x_direction, int y_direction)
 		{
 			if (this.location.x + x_direction >= 0 && this.location.y + y_direction >= 0 &&
-			    (this.location.x + x_direction) < Location.size_x && (this.location.y + y_direction) < Location.size_y) {
-				goToLocation (Location.world [this.location.x + x_direction, this.location.y + y_direction]);
+				(this.location.x + x_direction) < Location.size_x && (this.location.y + y_direction) < Location.size_y)
+			{
+				goToLocation(Location.world[this.location.x + x_direction, this.location.y + y_direction]);
 				return this.name + " перешел в локацию [" + this.location.x + ", " + this.location.y + "]";
-			} else
+			}
+			else
 				return "Не удалось перейти в локацию";
 		}
 
-		public void addToInventory (Item item)
+		public void addToInventory(Item item)
 		{
-			this.inventory.Add (item);
+			this.inventory.Add(item);
 		}
 
-		public void removeFromInventory (Item item)
+		public void removeFromInventory(Item item)
 		{
-			this.inventory.Remove (item);
+			this.inventory.Remove(item);
 		}
 
-		public void takeDamage (float damage)
+		public void takeDamage(float damage)
 		{
 			this.hp -= damage - damage * this.armor;
 		}
 
-		public void Die ()
+		/// <summary>
+		/// Brand new функция получения урона. Теперь резист зависит от типа урона. physical | magic
+		/// </summary>
+		/// <param name="damage">Damage.</param>
+		/// <param name="type">Type.</param>
+		public void takeDamage(float damage, string type)
 		{
-			for (int i = 0; i < inventory.Count; i++)
-				location.addItem (inventory [i]);
-			this.location.removeCreature (this);
+			switch (type)
+			{
+				case "physical":
+					{
+						this.hp -= damage - damage * this.armor;
+						break;
+					}
+				case "magic":
+					{
+						this.hp -= damage - damage * this.magic_resist;
+						break;
+					}
+			}
+
 		}
 
-		public string attack (Creature enemy )   //Желательно переделать в виртуальный метод, и для каждого класса существ переопределять отдельно
+		public void Die()
+		{
+			for (int i = 0; i < inventory.Count; i++)
+				location.addItem(inventory[i]);
+			this.location.removeCreature(this);
+		}
+
+		public string attack(Creature enemy)   //Желательно переделать в виртуальный метод, и для каждого класса существ переопределять отдельно
 		{
 			target = enemy;
-			if (target != null) {
-				if (target.isAlive ()) {
+			if (target != null)
+			{
+				if (target.isAlive())
+				{
 					//isInBattle = true;
-					float _enemy_hp = target.getHp () [0];  //нужно для расчёта нанесённого урона
-					target.takeDamage (damage);
-					if (!target.isAlive ()) {
+					float _enemy_hp = target.getHp()[0];  //нужно для расчёта нанесённого урона
+					target.takeDamage(damage);
+					if (!target.isAlive())
+					{
 						string _enemy_name = target.name;
-						addExp ((int)target.maxhp);
-						target.Die ();
+						addExp((int)target.maxhp);
+						target.Die();
 						target = null;
 						//isInBattle = false;
 						return name + " убил " + _enemy_name;
-					} else
-						return name + " нанёс " + Convert.ToInt32 (_enemy_hp - target.hp) + " урона по " + target.name;
-				} else
+					}
+					else
+						return name + " нанёс " + Convert.ToInt32(_enemy_hp - target.hp) + " урона по " + target.name;
+				}
+				else
 					return target.name + " уже мёртв";
-			} else
+			}
+			else
 				return ("Цель отсутствует");
 		}
 
+		/// <summary>
+		/// Функция атаки с возможностью выбора типа урона
+		/// </summary>
+		/// <returns>The attack.</returns>
+		/// <param name="enemy">Enemy.</param>
+		/// <param name="type">Type.</param>
+		public string attack(Creature enemy, string type)   //Желательно переделать в виртуальный метод, и для каждого класса существ переопределять отдельно
+		{
+			target = enemy;
+			if (target != null)
+			{
+				if (target.isAlive())
+				{
+					//isInBattle = true;
+					float _enemy_hp = target.getHp()[0];  //нужно для расчёта нанесённого урона
 
-		public void addExp (int exp)
+					target.takeDamage(damage, type);      // --> Расчет урона в зависимости от типа. Updated.
+
+					if (!target.isAlive())
+					{
+						string _enemy_name = target.name;
+						addExp((int)target.maxhp);
+						target.Die();
+						target = null;
+						//isInBattle = false;
+						return name + " убил " + _enemy_name;
+					}
+					else
+						return name + " нанёс " + Convert.ToInt32(_enemy_hp - target.hp) + " урона по " + target.name;
+				}
+				else
+					return target.name + " уже мёртв";
+			}
+			else
+				return ("Цель отсутствует");
+		}
+
+		public void addExp(int exp)
 		{
 			this.exp += exp;
 			if (this.exp >= this.exp_to_lvl)
-				this.lvlUp ();
+				this.lvlUp();
 		}
 
-		public string addHp (float hp)
+		public string addHp(float hp)
 		{
 			this.hp += hp;
 			if (this.hp > this.maxhp)
@@ -258,33 +345,43 @@ namespace AnotherOOPGame
 			return this.name + " вылечился на " + hp;
 		}
 
-		public void recountStats ()
+		public void recountStats()
 		{
 			strength = base_strength;
 			agility = base_agility;
 			intelligence = base_intelligence;
-			for (int i = 0; i < buffs.Count; i++) {
-				buffs [i].addStats ();
+			for (int i = 0; i < buffs.Count; i++)
+			{
+				buffs[i].addStats();
 			}
-			if (hp == maxhp) {
+			if (hp == maxhp)
+			{
 				maxhp = basehp + strength * 10;
 				hp = maxhp;
-			} else {
+			}
+			else
+			{
 				maxhp = basehp + strength * 10;
 			}
-			if (mana == maxmana) {
+			if (mana == maxmana)
+			{
 				maxmana = basemana + (intelligence * 10);
 				mana = maxmana;
-			} else {
+			}
+			else
+			{
 				maxmana = basemana + (intelligence * 10);
 			}
-			if (hero_class.Equals ("warrior")) {
+			if (hero_class.Equals("warrior"))
+			{
 				damage = basedamage + strength * 2;
 			}
-			if (hero_class.Equals ("rogue")) {
+			if (hero_class.Equals("rogue"))
+			{
 				damage = basedamage + agility * 2;
 			}
-			if (hero_class.Equals ("mage")) {
+			if (hero_class.Equals("mage"))
+			{
 				damage = basedamage + intelligence * 2;
 			}
 
@@ -294,7 +391,7 @@ namespace AnotherOOPGame
 				mana = maxmana;
 		}
 
-		public void lvlUp ()
+		public void lvlUp()
 		{
 			this.exp_to_lvl *= 2;
 			this.exp = 0;
@@ -304,147 +401,169 @@ namespace AnotherOOPGame
 			this.hp = this.maxhp;
 			this.maxmana += 50;
 			this.mana = maxmana;
-			if (lvl % 2 == 0) {
+			if (lvl % 2 == 0)
+			{
 				free_perks++;
 			}
 			free_stats += 3;
-			Console.WriteLine (this.name + " поднял свой уровень!");
+			Console.WriteLine(this.name + " поднял свой уровень!");
 		}
 
 		#region Взаимодействие с предметами
 
-		public string pickUpItem (Item item)
+		public string pickUpItem(Item item)
 		{
-			if (location.getItems ().Contains (item)) {
-				location.removeItem (item);
-				addToInventory (item);
+			if (location.getItems().Contains(item))
+			{
+				location.removeItem(item);
+				addToInventory(item);
 				return name + " подобрал " + item.name;
-			} else
+			}
+			else
 				return "Предмета не существует в локации";
 		}
 
-		public string equipArmor (Armor armor)
+		public string equipArmor(Armor armor)
 		{
-			if (inventory.Contains (armor)) {
-				if (this.equipment != null) {
-					this.unEquipArmor ();
+			if (inventory.Contains(armor))
+			{
+				if (this.equipment != null)
+				{
+					this.unEquipArmor();
 				}
-				inventory.Remove (armor);
+				inventory.Remove(armor);
 				this.equipment = armor;
-				armor.setOwner (this);
-				this.armor += armor.getArmor ();
-				buffs.Add (new Buff (armor.getStats (), -1, this));
-				recountStats ();
+				armor.setOwner(this);
+				this.armor += armor.getArmor();
+				buffs.Add(new Buff(armor.getStats(), -1, this));
+				recountStats();
 				return this.name + " надел " + armor.name;
-			} else
+			}
+			else
 				return "Такого в инвентаре нет";
 		}
 
-		public string unEquipArmor ()
+		public string unEquipArmor()
 		{
-			this.equipment.setOwner (null);
-			inventory.Add (this.equipment);
-			buffs.Remove (new Buff (equipment.getStats (), -1, this));
-			this.armor -= this.equipment.getArmor ();
+			this.equipment.setOwner(null);
+			inventory.Add(this.equipment);
+			buffs.Remove(new Buff(equipment.getStats(), -1, this));
+			this.armor -= this.equipment.getArmor();
 			this.equipment = null;
-			recountStats ();
+			recountStats();
 			return this.name + " снял доспехи";
 		}
 
-		public Armor getArmor ()
+		public Armor getArmor()
 		{
 			return equipment;
 		}
 
-		public string equipWeapon (Weapon weapon)
+		public string equipWeapon(Weapon weapon)
 		{
-			if (inventory.Contains (weapon)) {
-				if (this.weapon != null) {
-					unEquipWeapon ();
+			if (inventory.Contains(weapon))
+			{
+				if (this.weapon != null)
+				{
+					unEquipWeapon();
 				}
-				inventory.Remove (weapon);
-				weapon.setOwner (this);
-				this.damage += weapon.getDamage ();
-				buffs.Add (new Buff (weapon.getStats (), -1, this));
-				recountStats ();
+				inventory.Remove(weapon);
+				weapon.setOwner(this);
+				this.damage += weapon.getDamage();
+				buffs.Add(new Buff(weapon.getStats(), -1, this));
+				recountStats();
 				return this.name + " надел " + weapon.name;
-			} else {
+			}
+			else
+			{
 				return "Такого в инвентаре нет";
 			}
 
 
 		}
 
-		public string unEquipWeapon ()
+		public string unEquipWeapon()
 		{
-			this.weapon.setOwner (null);
-			inventory.Add (this.weapon);
-			this.damage -= weapon.getDamage ();
+			this.weapon.setOwner(null);
+			inventory.Add(this.weapon);
+			this.damage -= weapon.getDamage();
 			this.weapon = null;
-			buffs.Remove (new Buff (weapon.getStats (), -1, this));
-			recountStats ();
+			buffs.Remove(new Buff(weapon.getStats(), -1, this));
+			recountStats();
 			return this.name + " убрал оружие";
 		}
 
-		public Weapon getWeapon ()
+		public Weapon getWeapon()
 		{
 			return this.weapon;
 		}
 
 		#endregion
 
-		public override string ToString ()
+		public override string ToString()
 		{
 			return ("Creature");
 		}
 
-		public bool hasFreeStats ()          //Имеются ли у существа свободные очки характеристик
+		public bool hasFreeStats()          //Имеются ли у существа свободные очки характеристик
 		{
-			if (this.free_stats > 0) {
+			if (this.free_stats > 0)
+			{
 				return true;
-			} else {
+			}
+			else
+			{
 				return false;
 			}
 		}
 
-		public int getFreeStats ()
+		public int getFreeStats()
 		{
 			return free_stats;
 		}
 
-		public string upgradeStat (int stat)
+		public string upgradeStat(int stat)
 		{
-			if (hasFreeStats ()) {
+			if (hasFreeStats())
+			{
 				this.free_stats--;
-				if (stat == 0) {
+				if (stat == 0)
+				{
 					base_strength++;
-					recountStats ();
+					recountStats();
 					return "Сила повышена";
 				}
-				if (stat == 1) {
+				if (stat == 1)
+				{
 					base_agility++;
-					recountStats ();
+					recountStats();
 					return "Ловкость повышена";
 				}
-				if (stat == 2) {
+				if (stat == 2)
+				{
 					base_intelligence++;
-					recountStats ();
+					recountStats();
 					return "Интеллект повышен";
-				} else {
+				}
+				else
+				{
 					return "Такой характеристики нет";
 				}
 
-			} else
+			}
+			else
 				return "Нет свободных очков характеристик";
 		}
 
-		public string upgradePerk (int num)
+		public string upgradePerk(int num)
 		{
-			if (free_perks > 0) {
-				perks [num].lvlUp ();
+			if (free_perks > 0)
+			{
+				perks[num].lvlUp();
 				free_perks--;
-				return " уровень перка \" " + perks [num].name + "\" повышен";
-			} else
+				return " уровень перка \" " + perks[num].name + "\" повышен";
+			}
+			else
 				return "Нет свободных перкпоинтов";
 		}
 	}
