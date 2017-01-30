@@ -73,10 +73,8 @@
     <Compile Include="IEnemy.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="Armor.cs" />
-    <Compile Include="IUsable.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="Weapon.cs" />
-    <Compile Include="Damage.cs" />
     <Compile Include="Buff.cs" />
   </ItemGroup>
   <ItemGroup>

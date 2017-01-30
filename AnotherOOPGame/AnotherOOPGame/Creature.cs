@@ -522,6 +522,14 @@ namespace AnotherOOPGame
 			return free_stats;
 		}
 
+		/// <summary>
+		/// Улучшение характеристик, если есть свободные очки.
+		/// 0 - сила
+		/// 1 - ловкость
+		/// 2 - интеллект
+		/// </summary>
+		/// <returns>The stat.</returns>
+		/// <param name="stat">Stat.</param>
 		public string upgradeStat(int stat)
 		{
 			if (hasFreeStats())
@@ -555,6 +563,11 @@ namespace AnotherOOPGame
 				return "Нет свободных очков характеристик";
 		}
 
+		/// <summary>
+		/// Улучшение перка по номеру в списке перков существа.
+		/// </summary>
+		/// <returns>The perk.</returns>
+		/// <param name="num">Number.</param>
 		public string upgradePerk(int num)
 		{
 			if (free_perks > 0)
