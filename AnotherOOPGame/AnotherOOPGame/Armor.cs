@@ -8,7 +8,7 @@ namespace AnotherOOPGame
 	public class Armor : Equipment
 	{
 		float armor;
-		public Armor(string name, float armor, Stats stats)
+		public Armor(string name, float armor, Buff stats)
 			: base(name, stats)
 		{
 			this.armor = armor;

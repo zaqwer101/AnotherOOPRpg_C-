@@ -13,32 +13,35 @@ namespace AnotherOOPGame
 		public Creature caster, target;
 		public int manacost, lvl, base_value, value;
 
-		public Perk (Creature caster)
+
+		public Perk(Creature caster)
 		{
 			this.lvl = 1;
 			this.caster = caster;
-			update ();
+			update();
 		}
 
-		public abstract string _use ();
+		public abstract string _use();
 		// То, что делает перк
 
-		public string use ()             // Обработчик для расчёта количества маны и прочего
+		public string use()             // Обработчик для расчёта количества маны и прочего
 		{
-			update ();
-			if (caster.mana >= manacost) {
+			update();
+			if (caster.mana >= manacost)
+			{
 				caster.mana -= manacost;
-				return _use ();
-			} else
+				return _use();
+			}
+			else
 				return "Недостаточно маны (" + manacost + ")";
 		}
 
-		public abstract void update ();
+		public abstract void update();
 
-		public void lvlUp ()
+		public void lvlUp()
 		{
 			lvl++;
-			update ();
+			update();
 		}
 	}
 }

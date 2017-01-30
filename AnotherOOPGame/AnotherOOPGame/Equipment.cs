@@ -4,13 +4,13 @@ namespace AnotherOOPGame
 {
 	public class Equipment : Item
 	{
-		Buff stats_handler;
+		Buff stats;
 		Creature owner;
-		public Equipment(string name, Buff stats_handler)
+		public Equipment(string name, Buff stats)
 			: base(name)
 		{
 			this.name = name;
-			this.stats_handler = stats_handler;
+			this.stats = stats;
 		}
 
 		public void setOwner(Creature creature)
@@ -25,7 +25,7 @@ namespace AnotherOOPGame
 
 		public Stats getStats()
 		{
-			return stats_handler.stats;
+			return stats.stats;
 		}
 	}
 }

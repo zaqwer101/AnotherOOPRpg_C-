@@ -5,6 +5,7 @@ namespace AnotherOOPGame
 {
 	public class Creature : GameObject
 	{
+
 		public List<Perk> perks;
 		public List<Buff> buffs;
 		public List<IPoison> poisons;

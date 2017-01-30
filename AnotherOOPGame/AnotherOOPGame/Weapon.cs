@@ -5,7 +5,7 @@ namespace AnotherOOPGame
 	public class Weapon : Equipment
 	{
 		int damage;
-		public Weapon (string name, int damage, Stats stats)
+		public Weapon(string name, int damage, Buff stats)
 			: base(name, stats)
 		{
 			this.damage = damage;
@@ -16,7 +16,7 @@ namespace AnotherOOPGame
 			return damage;
 		}
 
-		public override string ToString ()
+		public override string ToString()
 		{
 			return ("Weapon");
 		}
