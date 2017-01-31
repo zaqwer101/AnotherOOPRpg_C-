@@ -76,6 +76,7 @@
     <Compile Include="Stats.cs" />
     <Compile Include="Weapon.cs" />
     <Compile Include="Buff.cs" />
+    <Compile Include="Forms\AllPerks.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\Battle.resx">
