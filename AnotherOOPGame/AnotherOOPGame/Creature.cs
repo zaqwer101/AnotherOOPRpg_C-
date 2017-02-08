@@ -202,13 +202,13 @@ namespace AnotherOOPGame
 			location.addCreature(this);
 			this.location = location;
 		}
-		/// <summary>
-		/// Отправляет существо в заданном направлении
-		/// </summary>
-		/// <returns>The to direction.</returns>
-		/// <param name="x_direction">X direction.</param>
-		/// <param name="y_direction">Y direction.</param>
-		public string goToDirection(int x_direction, int y_direction)
+        /// <summary>
+        /// Отправляет существо в заданном направлении
+        /// </summary>
+        /// <returns>The to direction.</returns>
+        /// <param name="x_direction">X direction.</param>
+        /// <param name="y_direction">Y direction.</param>
+        public string goToDirection(int y_direction, int x_direction)
 		{
 			if (this.location.x + x_direction >= 0 && this.location.y + y_direction >= 0 &&
 				(this.location.x + x_direction) < Location.size_x && (this.location.y + y_direction) < Location.size_y)

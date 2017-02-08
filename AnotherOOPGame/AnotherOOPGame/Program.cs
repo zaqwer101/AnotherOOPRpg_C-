@@ -292,7 +292,6 @@ namespace AnotherOOPGame
 			}
 			Console.WriteLine ("Лол ты сдох");
 		}
-
 		/*static public void testHandler()
 		{
 			Location.worldInit ();
@@ -436,10 +435,15 @@ namespace AnotherOOPGame
 
 		public static void Main (string[] args)
 		{
-
-			//testHandler ();
-			Console.Clear ();
-
+            RoguelikeHandler handler = new RoguelikeHandler();
+            Creature hero = new Creature("Horus", Location.world[0, 0], "warrior");
+			
+            handler.hero = hero;
+            while (true)
+            {
+                Console.Clear();
+                handler.handler();
+            }
 		}
 	}
 }
